@@ -22,6 +22,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -61,6 +62,13 @@ class GameFragment : Fragment() {
             viewModel.onSkip()
         }
 
+        /*
+        Doubt from were binding is getting names scoreText
+        and wordText coz in layout file id is score_text
+        word_text and on ctrl and hovering on those it is going
+        to same underscore id TextViews
+         */
+
         viewModel.score.observe(this , Observer {
             newScore ->
             binding.scoreText.text = newScore.toString()
@@ -69,6 +77,15 @@ class GameFragment : Fragment() {
         viewModel.word.observe(this , Observer {
             newWord ->
             binding.wordText.text = newWord
+        })
+
+        viewModel.eventGameFinish.observe(this , Observer {
+            hasFinished ->
+            if(hasFinished)
+            {
+                gameFinished()
+                viewModel.onGameFinishComplete()
+            }
         })
 
         return binding.root
@@ -88,17 +105,8 @@ class GameFragment : Fragment() {
     private fun gameFinished() {
         val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0 )
         findNavController(this).navigate(action)
+        /*Toast.makeText(this.activity , "Game has Finished" , Toast.LENGTH_SHORT )
+                .show()*/
     }
-
-
-
-
-    /** Methods for updating the UI **/
-
-    private fun updateWordText() {
-        binding.wordText.text = viewModel.word.value
-
-    }
-
 
 }
