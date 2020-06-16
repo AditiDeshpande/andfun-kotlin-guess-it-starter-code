@@ -56,13 +56,7 @@ class GameFragment : Fragment() {
         Log.i("GameFragment" , "Called ViewModelProvider")
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-        }
-
+        binding.gameViewModel = viewModel
         /*
         Doubt from were binding is getting names scoreText
         and wordText coz in layout file id is score_text
