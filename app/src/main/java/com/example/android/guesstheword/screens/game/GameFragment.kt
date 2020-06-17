@@ -80,7 +80,7 @@ class GameFragment : Fragment() {
             {
                 gameFinished()
                 viewModel.onGameFinishComplete()
-                //Game over vibrator pattern
+                
             }
         })
 
