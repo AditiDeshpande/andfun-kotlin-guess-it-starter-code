@@ -57,22 +57,9 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
         binding.gameViewModel = viewModel
-        /*
-        Doubt from were binding is getting names scoreText
-        and wordText coz in layout file id is score_text
-        word_text and on ctrl and hovering on those it is going
-        to same underscore id TextViews
-         */
 
-        viewModel.score.observe(this , Observer {
-            newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
+        binding.setLifecycleOwner(this)
 
-        viewModel.word.observe(this , Observer {
-            newWord ->
-            binding.wordText.text = newWord
-        })
 
         viewModel.eventGameFinish.observe(this , Observer {
             hasFinished ->
